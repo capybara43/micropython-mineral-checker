@@ -1,0 +1,101 @@
+from microbit import *
+
+minerals = [{'name': 'quartz','lower hardness': 7,'upper hardness':7,'transparency':True,'Streak':'white','magnetism':False},
+            {'name': 'gypsum', 'lower hardness': 2,'upper hardness':2,'transparency':True,'Streak':'white','magnetism':False}, 
+            {'name': 'magnetite', 'lower hardness': 5.5,'upper hardness':6.5,'transparency':False,'Streak':'black','magnetism':True},
+            {'name': 'variscite', 'lower hardness': 4.5,'upper hardness':7,'transparency':False,'Streak':'white','magnetism':False},
+            {'name': 'wavelite', 'lower hardness': 3.5,'upper hardness':4,'transparency':False,'Streak':'white','magnetism':False},
+            {'name': 'diamond', 'lower hardness': 10,'upper hardness':10,'transparency':False,'Streak':'colourless','magnetism':False},
+            {'name': 'turqoise', 'lower hardness': 5,'upper hardness':7,'transparency':False,'Streak':'bluish white','magnetism':False},
+            {'name': 'magnesite', 'lower hardness': 3.5,'upper hardness':4.5,'transparency':True,'Streak':'white','magnetism':False},
+            {'name': 'feldspar', 'lower hardness': 6,'upper hardness':6.5,'transparency':False,'Streak':'white','magnetism':False},
+            {'name': 'biotite mica', 'lower hardness': 2.5,'upper hardness':3,'transparency':False,'Streak':'white','magnetism':False},
+            {'name': 'polished diamond', 'lower hardness': 10,'upper hardness':10,'transparency':True,'Streak':'colourless','magnetism':False},
+            {'name': 'impure calcite', 'lower hardness': 3,'upper hardness':3,'transparency':False,'Streak':'white','magnetism':False},
+            {'name': 'died magnesite', 'lower hardness': 3.5,'upper hardness':4.5,'transparency':False,'Streak':'white','magnetism':False},
+            {'name': 'impure gypsum', 'lower hardness': 2,'upper hardness':2,'transparency':False,'Streak':'white','magnetism':False},
+            {'name': 'calcite', 'lower hardness': 3,'upper hardness':3,'transparency':True,'Streak':'white','magnetism':False},
+
+]
+
+display.scroll('Transparent?')
+transparency = False
+while True :
+    if button_a.is_pressed() :
+        if  transparency == True :
+            transparency = False
+            display.scroll(str(transparency))
+        else :     
+            transparency = True
+            display.scroll(str(transparency))
+    if button_b.is_pressed() :
+        sleep(1000)
+        break
+
+possible_hardness = 0 
+display.scroll('Hardness?')
+while True :
+    if button_a.is_pressed() and (possible_hardness < 10) :
+        possible_hardness = possible_hardness +0.5
+        display.scroll(str(possible_hardness))
+    elif button_a.is_pressed() and (possible_hardness == 10) : 
+        possible_hardness = 0
+        display.scroll(str(possible_hardness))
+    if button_b.is_pressed() :
+        sleep(1000)
+        break
+hardness = possible_hardness
+possible_streak = ('white')
+display.scroll('Streak?')
+while True :
+    if button_a.is_pressed() and possible_streak =='white' :
+        possible_streak ='blue'  
+        display.scroll(possible_streak)
+    elif button_a.is_pressed() and possible_streak =='blue' :
+        possible_streak ='colourless'
+        display.scroll(possible_streak)    
+    elif button_a.is_pressed() and possible_streak =='colourless' :
+        possible_streak ='black'
+        display.scroll(possible_streak)
+    elif button_a.is_pressed() and possible_streak =='black' :
+        possible_streak ='blueishwhite'
+        display.scroll(possible_streak)
+    elif button_a.is_pressed() and possible_streak =='blueishwhite' :
+        possible_streak ='green'
+        display.scroll(possible_streak)
+    elif button_a.is_pressed() and possible_streak =='green' :
+        possible_streak ='white'
+        display.scroll(possible_streak)
+    if button_b.is_pressed() : 
+        sleep(1000)
+        break
+streak = possible_streak 
+display.scroll('Magnetic?')
+magnetism = False
+while True :
+    if button_a.is_pressed() :
+        if magnetism == True :
+            magnetism = False
+            display.scroll(str(magnetism))
+        else :     
+            magnetism = True
+            display.scroll(str(magnetism))
+    if button_b.is_pressed() :
+        break
+for mineral in minerals :
+    display.scroll(mineral['name'])
+    if mineral['upper hardness'] >= hardness and mineral['lower hardness'] <= hardness :
+        display.scroll('hardness match')
+        display.scroll(mineral ['name'])
+        if mineral['transparency'] == transparency :
+            display.scroll('transparency match')
+            display.scroll(mineral['name'])
+            if mineral['Streak'] == streak :
+                display.scroll('streak match')
+                display.scroll(mineral ['name'])
+                if mineral ['magnetism'] == magnetism : 
+                    display.scroll('magnetism match')
+                    display.scroll(mineral ['name'])
+                    mystery_mineral = (mineral ['name'])
+                    display.scroll('your mineral is')
+                    display.scroll(mystery_mineral)
